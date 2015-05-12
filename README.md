@@ -40,7 +40,7 @@ grunt.initConfig({
 #### options.tpl
 Type: `String`
 
-A string value that is the pate of template file.
+A string value that is the path of the template file.
 
 #### options.renderer
 Type: `Function`
@@ -49,8 +49,9 @@ A function that is used to custom the data for generating view.It is optional.
 
 ### Usage Example
 
-In this example, the options are used to localizate the home page to two language, english and chinese.Its will be generated in "tmp" folder.
-On the chinese options, there are two json files, the first "en-us.json" is using as default if the key unfound on the second "zh-cn.json".And there is a custom function "renderer", which will replace the key "foo" on template file with the custom string.You may run the example with this command:
+In this example, the options are used to localize the home page to two language, english and chinese.Its will be generated in "tmp" folder.
+On the chinese options, there are two json files, the first "en-us.json" is using as default if the key unfound on the second "zh-cn.json".And there is a custom function "renderer", which will replace the key "foo" on template file with the custom string.
+You may run the example with this command:
 ```shell
 grunt test
 ```
