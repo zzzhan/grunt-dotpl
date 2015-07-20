@@ -5,22 +5,20 @@
  * Copyright (c) 2015 zzzhan
  * Licensed under the MIT license.
  */
-
+ 
 'use strict';
 var dotpl = require('dotpl');
 module.exports = function(grunt) {
-
   // Please see the Grunt documentation for more information regarding task
   // creation: http://gruntjs.com/creating-tasks
-
   grunt.registerMultiTask('dotpl', 'A lite javascript template plugin.', function() {
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
     });
-    if(!options.tpl) {      
-      grunt.fail.warn('Template file option unfound:tpl');
+	var tpl = options[this.target]||options.tpl;
+    if(!tpl) {
+      grunt.fail.warn('Template file option unfound:tpl or '+this.target);
     }
-
     // Iterate over all specified file groups.
     this.files.forEach(function(f) {
       // Concat specified files.
@@ -39,14 +37,11 @@ module.exports = function(grunt) {
         for(var key in item) {
           data[key] = item[key];
         }
-      }
-      
+      }      
       // Write the destination file.
-      grunt.file.write(f.dest, dotpl.applyTpl(grunt.file.read(options.tpl), data, options.renderer));
-
+      grunt.file.write(f.dest, dotpl.applyTpl(grunt.file.read(tpl), data, options.renderer));
       // Print a success message.
       grunt.log.writeln('File "' + f.dest + '" created.');
     });
   });
-
 };
