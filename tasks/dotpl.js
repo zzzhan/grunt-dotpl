@@ -14,13 +14,22 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('dotpl', 'A lite javascript template plugin.', function() {
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
+		opener:'\\$\\{',
+		closer:'\\}'
     });
-	var tpl = options[this.target]||options.tpl;
-    if(!tpl) {
-      grunt.fail.warn('Template file option unfound:tpl or '+this.target);
-    }
+	var tplString = options.tplString;
+	if(!tplString) {
+	  var tpl = options[this.target]||options.tpl;
+	  if(!tpl) {
+	    grunt.fail.warn('Template file option unfound:tpl or '+this.target);
+	  }
+	  tplString = grunt.file.read(tpl);
+	}
+	//console.log(this.target+':'+options.opener);
+	//console.log(this.target+':'+tpl);
+	dotpl.setDelimiters(options.opener, options.closer);
     // Iterate over all specified file groups.
-    this.files.forEach(function(f) {
+    this.files.forEach((function(f) {
       // Concat specified files.
       var src = f.src.filter(function(filepath) {
         // Warn on and remove invalid source files (if nonull was set).
@@ -37,11 +46,16 @@ module.exports = function(grunt) {
         for(var key in item) {
           data[key] = item[key];
         }
-      }      
+      }
+	  this.ctx = f;
       // Write the destination file.
-      grunt.file.write(f.dest, dotpl.applyTpl(grunt.file.read(tpl), data, options.renderer));
+	  var fn = options.renderer;
+	  if(typeof fn ==='function') {
+		fn = fn.bind(this);
+	  }
+      grunt.file.write(f.dest, dotpl.applyTpl(tplString, data, fn));
       // Print a success message.
       grunt.log.writeln('File "' + f.dest + '" created.');
-    });
+    }).bind(this));
   });
 };
