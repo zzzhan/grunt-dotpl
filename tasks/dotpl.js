@@ -15,7 +15,8 @@ module.exports = function(grunt) {
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
 		opener:'\\$\\{',
-		closer:'\\}'
+		closer:'\\}',
+		tag:'<tpl>'
     });
 	var tplString = options.tplString;
 	if(!tplString) {
@@ -27,7 +28,7 @@ module.exports = function(grunt) {
 	}
 	//console.log(this.target+':'+options.opener);
 	//console.log(this.target+':'+tpl);
-	dotpl.setDelimiters(options.opener, options.closer);
+	dotpl.setDelimiters(options.opener, options.closer, options.tag);
     // Iterate over all specified file groups.
     this.files.forEach((function(f) {
       // Concat specified files.

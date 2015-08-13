@@ -1,7 +1,7 @@
 {
   "name": "grunt-dotpl",
   "description": "This is a grunt plugin of [dotpl-js](https://github.com/zzzhan/dotpl-js), which is a lite javacript template engine. Using this tool, you can combine template and json files to generate different views.One advanage is using it as your pages localization tool.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "homepage": "https://github.com/zzzhan/grunt-dotpl",
   "author": {
     "name": "zzzhan",
