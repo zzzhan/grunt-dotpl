@@ -20,7 +20,12 @@ module.exports = function(grunt) {
     });
 	var tplString = options.tplString;
 	if(!tplString) {
-	  var tpl = options[this.target]||options.tpl;
+	  var tpl;
+	  if(typeof options.tpl==='string') {
+		tpl = options.tpl;
+	  } else {
+	    tpl = (options.tpl&&options.tpl[this.target])||options[this.target];
+	  }
 	  if(!tpl) {
 	    grunt.fail.warn('Template file option unfound:tpl or '+this.target);
 	  }

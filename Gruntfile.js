@@ -31,7 +31,7 @@ module.exports = function(grunt) {
     // Configuration to be run (and then tested).
     dotpl: {
       options: {
-        tpl:'test/tpl/index.tpl'
+        tpl:{default_lang:'test/tpl/index.tpl',zh_cn:'test/tpl/index.tpl'}
       },
       default_lang: {
         files: {
